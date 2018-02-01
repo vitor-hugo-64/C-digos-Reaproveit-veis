@@ -1,0 +1,120 @@
+* {
+	font-family: 'Calibri';
+	font-size: 16px;
+	color: black;
+}
+
+h1 {
+	font-size: 32px;
+}
+
+h2 {
+	font-size: 28px;
+}
+
+h3 {
+	font-size: 24px;
+}
+
+h4 {
+	font-size: 20px;
+}
+
+.row, .col {
+	box-sizing: border-box;
+}
+
+.row: before, .row:after {
+	display: table;
+}
+
+.row:after {
+	clear: both;
+}
+
+.col {
+	position: relative;
+	float: left;
+	display: block;
+}
+
+.col + .col {
+	margin-left: 1.6%;
+}
+
+.c1 {
+  width: 6.86666666667%;
+}
+
+.c2 {
+  width: 15.3333333333%;
+}
+
+.c3 {
+  width: 23.8%;
+}
+
+.c4 {
+  width: 32.2666666667%;
+}
+
+.c5 {
+  width: 40.7333333333%;
+}
+
+.c6 {
+  width: 49.2%;
+}
+
+.c7 {
+  width: 57.6666666667%;
+}
+
+.c8 {
+  width: 66.1333333333%;
+}
+
+.c9 {
+  width: 74.6%;
+}
+
+.c10 {
+  width: 83.0666666667%;
+}
+
+.c11 {
+  width: 91.5333333333%;
+}
+
+.c12 {
+  width: 100%;
+}
+
+@media only screen  and (max-width: 550px) {
+	.c1, 
+	.c2, 
+	.c3, 
+	.c4, 
+	.c5, 
+	.c6, 
+	.c7, 
+	.c8, 
+	.c9, 
+	.c10, 
+	.c11, 
+	.c12 {
+		width: auto;
+		float: none;
+		margin-right: 1.6%;
+	}
+
+	.col + .col {
+		margin-left: 0;
+	}
+}
+
+.quadrado {
+	background: red;
+	width: 100px;
+	height: 100px;
+}
