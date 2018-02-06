@@ -1,0 +1,62 @@
+<?php
+
+	namespace Hcode;
+
+	class Model {
+		
+		// CRIA UM ATRIBUTO QUE IRÁ SERVIR PARA ARMAZENAR OS DADOS DO USUÁRIO
+		private $values = [];
+
+		// ESSE METODO É UM DOS MÁGIOS, E É EXECUTADO TODA VEZ QUE ALGUÉM CHAMA UMA FUNÇÃO QUE NÃO EXISTE
+		// ESSE METODO SERÁ RESPONSÁVEL POR CRIAR GETTERS E SETTERS DE FORMA DINAMICA
+		// O PRIMEIRO ARGUMENTO É O NOME DA FUNÇÃO, E O SEGUNDO É OS DADOS INFORMADOS NO PARAMETRO DA FUNÇÃO
+		public function __call($name, $args) {
+			
+			// ESSA LINHA PEGA AS PRIMEIRAS TRES LETRAS DA FUNÇÃO INEXISTENTE E ARMAZENA NA VARIÁVEL '$method'
+			$method = substr($name, 0, 3);
+			// ESSA LINHA PEGA DA TERCEIRA LETRA EM DIANTE PARA ASSIM PEGAR TODO RESTO DO NOME DA FUNÇÃO
+			$fieldName = substr($name, 3, strlen($name));
+
+			// ISSO IRÁ ANALISAR A VARIÁVEL '$method' E IRA DEFINIR SE É UM GETTER OU SETTER
+			switch ($method) {
+
+				case 'get':
+					// CASO SEJA UM GETTER ELE IRÁ RETORNAR O PRÓPRIO VALOR
+					return $this->values[$fieldName];
+					break;
+				
+				case 'set':
+					// CASO SEJA UM GETTER ELE IRÁ ARMAZENAR O '$args' NA VARIÁVEL CORRESPONDENTE
+					return $this->values[$fieldName] = $args[0];
+					break;
+			}
+
+		}
+
+		// FUNÇÃO QUE ARMAZENA OS DADOS INFORMADOS NOS ATRIBUTOS
+		// O PARAMETRO INFORMADO É UM ARRAY QUE CONTEM OS DADOS A SEREM ARMAZENADOS
+		public function setData($data =array())
+		{
+
+			// A ESTRUTURA DE REPETIÇÃO A SEGUIR IRÁ RECEBER O ARRAY QUE ARMAZENA OS DADOS A SEREM GUARDADOS NO OBJETO
+			foreach ($data as $key => $value) {
+
+				// ESSA LINHA SERÁ A REPONSÁVEL POR EXECUTAR UMA FUNÇÃO DE GET DE FORMA DINAMICA
+				// AS '{}' SERVE PRA CONCATENAR UMA STRING JUNTAMENTE COM UMA VARIÁVEL
+				// NESSE CASO ELE ESTÁ CRIANDO O NOME DA FUNÇÃO DE FORMA DINAMICA COMO SE FOSSE ASSIM: '$this->setKey($value)'
+				// MAS COMO O '$key' ARMAZENA  NOME DA CHAVE ENTÃO ELE IRÁ CONCATENAR COM O NOME REFERENTE AS DADOS
+				// SERIA ASSIM(CASO O NOME DA CHAVE FOSSE IDADE): '$this->setIdade($value)'
+				// FINAL DESSA CRIAÇÃO DE FUNÇÃO DINAMICA ELA IRÁ EXECUTAR
+				$this->{"set".$key}($value);
+
+			}
+
+		}
+
+		// FUNÇÃO RESPONSAVEL EM RETORNAR OS DADOS
+		public function getValues()
+		{
+			return $this->values;
+		}
+
+	}
